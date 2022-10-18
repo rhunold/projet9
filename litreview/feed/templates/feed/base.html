@@ -1,0 +1,17 @@
+{% load static %}
+
+<html>
+    <head><title>LITReview</title></head>
+    <link rel="stylesheet" href="{% static 'feed/styles.css' %}" />
+    <body>
+
+        <nav>
+            <a href="{% url 'ticket_list' %}">Tickets</a>
+            <a href="{% url 'ticket_create' %}">Add Ticket</a>
+          </nav>        
+
+        {% block content %}
+        {% endblock %}
+
+    </body>
+</html>
