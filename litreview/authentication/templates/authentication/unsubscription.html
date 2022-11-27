@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Désabonnement</h2>
+
+<p>Confirmez-vous le desabonnement de  ?
+  
+
+    {% comment %}
+    
+    {{ follow.followed_user.username }}
+    {{ follow.id  }}
+    
+    {% endcomment %}
+
+</p>
+
+
+<form method="POST" action="{% url 'subscription'  %}" name="followed_user">
+    {{ form.as_p }}  
+    {% csrf_token %}
+
+
+    <button type="submit">Oui</button>
+    <a href="{% url 'subscription' %}">Annuler</a>
+</div>
+</form>
+
+  
+  {% endblock content %}

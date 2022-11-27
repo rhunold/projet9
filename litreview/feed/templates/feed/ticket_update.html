@@ -1,13 +1,20 @@
-{% extends 'feed/base.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
 
-<h1>Mise à jour du ticket</h1>
+<h1>Mise à jour du ticket {{ ticket.title }} </h1>
 
-<form action="" method="post"> <!-- novalidate -->
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Envoyer">
-</form>
+{% if ticket.user == request.user %}
+  <form action="" method="post"> <!-- novalidate -->
+    {% csrf_token %}
+    {{ update_form.as_p }}
+    <input type="submit" value="Envoyer" class="button">
+  </form>
+
+{% else %}
+  <h2>Vous n'êtes pas autorisé à modifier ce ticket.</h2>
+
+{% endif %}
 
 {% endblock %}
+

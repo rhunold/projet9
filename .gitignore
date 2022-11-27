@@ -1,8 +1,7 @@
 # Ignore the environnement directory
 env/
 __pycache__/
-deb.sqlite3
+db.sqlite3
 .DS_Store
 specs/
-README.md
 # litreview/db.sqlite3

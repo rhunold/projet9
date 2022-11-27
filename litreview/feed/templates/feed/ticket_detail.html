@@ -1,18 +1,29 @@
-{% extends 'feed/base.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
 
-<h1>L'identifiant du ticket est {{ ticket.id }}</h1>
+<h1>L'identifiant du ticket est {{ ticket.ticket_id }}</h1>
 
 <h2>Titre : {{ ticket.title }}</h2>
 
 <ul>
  <li>Description : {{ ticket.description }}</li>
  <li>Creation: {{ ticket.time_created }}</li>
+
 </ul>
 
+{% if ticket.image %}
+<!-- article images -->
+<img src="{{ ticket.image.url }}">
+{% endif %}
+
+
+
 <p>
-    <a href="{% url 'ticket_update' ticket.id %}">Modifier</a>
+    {% if post.user == request.user %}
+        <a href="{% url 'ticket_delete' ticket.ticket_id %}">Supprimer</a>  
+        <a href="{% url 'ticket_update' ticket.ticket_id %}">Modifier</a>
+    {% endif %}
     <a href="{% url 'ticket_list' %}">Retour à tous les tickets</a>
 </p>
 

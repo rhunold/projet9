@@ -1,14 +1,14 @@
-{% extends 'feed/base.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
 
 <h1>Suppresion du ticket</h1>
 <p>Confirmez-vous la suppression de "{{ ticket.title }}" ? </p>
 
-<form action="" method="post"> <!-- novalidate -->
-  {% csrf_token %}
-  {% comment %} {{ form.as_p }} {% endcomment %}
-  <input type="submit" value="Supprimer">
+<form method="POST" action=""> <!-- novalidate -->
+    {{ delete_form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="Supprimer" class="button">
 </form>
 
 {% endblock %}
