@@ -1,0 +1,23 @@
+
+<div class="post">
+    <span>
+        {% if post.user == request.user %}
+            Vous avez
+        {% else %}
+            {{ post.user }} a
+        {% endif %}
+        demandé une critique
+    </span>
+
+    <em>le {{ post.time_created }} </em>
+
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.description }}</p>        
+
+    {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}">
+    {% endif %}
+</div>
+
+
+

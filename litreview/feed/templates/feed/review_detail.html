@@ -2,20 +2,27 @@
 
 {% block content %}
 
-<!-- <h1>L'identifiant du ticket est {{ ticket.ticket_id }}</h1> -->
-
 <h2>Titre : {{ ticket.title }}</h2>
-
 <ul>
  <li>Description : {{ ticket.description }}</li>
  <li>Creation: {{ ticket.time_created }}</li>
-
 </ul>
-
 {% if ticket.image %}
 <!-- article images -->
 <img src="{{ ticket.image.url }}">
 {% endif %}
+
+
+
+<h1>L'identifiant de la review est {{ review.review_id }}</h1>
+
+<h2>headline : {{ review.headline }}</h2>
+<p>body : {{ review.body }}</p>
+<p>ticket : {{ review.ticket }}</p>
+<p>rating :  {{ review.rating }}</p>
+<p>time_created :  {{ review.time_created }}</p>
+
+</ul>
 
 
 

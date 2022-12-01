@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Suppression de la critique</h2>
+<p>Confirmez-vous la suppression de "{{ review.headline }}" ? </p>
+
+<form method="POST" action=""> <!-- novalidate -->
+    {{ delete_form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="Supprimer" class="button">
+</form>
+
+{% endblock %}

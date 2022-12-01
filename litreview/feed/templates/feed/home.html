@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div id="create_buttons">
+        <a href="{% url 'ticket_create' %}" class="button">Demander une critique</a>
+        <a href="{% url 'ticket_review_create' %}" class="button">Créer une critique</a>  
+    </div>
+
+
+{% for post in posts  %}
+    <div class="post">
+    {% if post.title  %}
+        {% include 'feed/snippet_ticket.html' %} 
+  
+
+        {% if post not in reviews_ticket %}
+            <form action="{% url 'review_create' post.id %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Créer une critique" class="button">
+            </form> 
+        {% else %}
+            {% comment %} <p>Critique déjà donné</p> {% endcomment %}
+        {% endif %}       
+
+
+    {% else %}
+        {% include 'feed/snippet_review.html' %} 
+
+    {% endif %}
+    </div>
+{% endfor %}
+
+
+{% include 'feed/snippet_pagination.html' %} 
+
+
+
+{% endblock content %}

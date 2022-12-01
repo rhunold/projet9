@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Créer votre critique</h2>
+
+
+{% include 'feed/snippet_ticket.html' %} 
+
+
+<h2>Critique</h2>
+<form action="" method="POST"> <!-- novalidate -->
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Envoyer" class="button">
+</form>
+
+{% endblock %}

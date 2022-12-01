@@ -7,8 +7,9 @@ from feed.forms import TicketForm, ReviewForm, TicketReviewForm  # DeleteReviewF
 
 from django.contrib.auth.decorators import login_required
 
-
 from itertools import chain
+
+from django.core.paginator import Paginator
 
 
 
@@ -22,13 +23,18 @@ def home(request):
         tickets = tickets | Ticket.objects.filter(user=following.followed_user)
         reviews = reviews | Review.objects.filter(user=following.followed_user)
         
-    tickets_and_reviews = sorted(chain(tickets, reviews), key=lambda x: x.time_created, reverse=True) 
+    tickets_and_reviews = sorted(chain(tickets, reviews), key=lambda x: x.time_created, reverse=True)
+    
+    p = Paginator(tickets_and_reviews, 10)
+    page = request.GET.get('page')
+    posts = p.get_page(page) 
     
     reviews_ticket = [review.ticket for review in reviews]
     
     context = {
-        'tickets_and_reviews': tickets_and_reviews,
-        'reviews_ticket': reviews_ticket,        
+        # 'tickets_and_reviews': tickets_and_reviews,
+        'reviews_ticket': reviews_ticket,
+        'posts': posts,       
         }
 
     if request.method == 'POST':
@@ -48,10 +54,19 @@ def posts(request):
     
     tickets_and_reviews = sorted(chain(tickets, reviews), key=lambda x: x.time_created, reverse=True) 
     
+    
+    p = Paginator(tickets_and_reviews, 10)
+    page = request.GET.get('page')
+    posts = p.get_page(page) 
+    
+    reviews_ticket = [review.ticket for review in reviews]    
+        
     context = {
         'tickets': tickets,
         'reviews': reviews,   
-        'tickets_and_reviews': tickets_and_reviews,
+        # 'tickets_and_reviews': tickets_and_reviews,
+        'reviews_ticket': reviews_ticket,        
+        'posts': posts,            
         }            
     return render(request, 'feed/posts.html', context=context)
 
@@ -157,7 +172,7 @@ def ticket_delete(request, ticket_id):
 def review_create(request, ticket_id):
     """ Create a review for a ticket """       
 
-    ticket = Ticket.objects.get(id=ticket_id)
+    post = Ticket.objects.get(id=ticket_id)
      
     if request.method == 'POST':
         form = ReviewForm(request.POST)
@@ -166,7 +181,7 @@ def review_create(request, ticket_id):
                 headline = form.cleaned_data['headline'],
                 rating = form.cleaned_data['rating'],
                 body = form.cleaned_data['body'],
-                ticket = ticket,
+                ticket = post,
                 user = request.user
             )
             review.save()
@@ -175,8 +190,8 @@ def review_create(request, ticket_id):
 
         
     context = {
-        'form': ReviewForm(initial={'ticket': ticket}) ,
-        'ticket': ticket,        
+        'form': ReviewForm(initial={'ticket': post}) ,
+        'post': post,        
         }        
 
     return render(request, 'feed/review_create.html', context=context)
@@ -186,7 +201,7 @@ def review_detail(request, review_id):
     """ Review detail view """       
     review = Review.objects.get(id=review_id)
     ticket = Ticket.objects.get(id=review.ticket.id)
-    
+     
     context = {
         'review': review,
         'ticket': ticket,
