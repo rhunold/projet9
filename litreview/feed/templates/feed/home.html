@@ -17,7 +17,9 @@
         {% if post not in reviews_ticket %}
             <form action="{% url 'review_create' post.id %}" method="POST">
                 {% csrf_token %}
-                <input type="submit" value="Créer une critique" class="button">
+                <p class="text-end">
+                    <input type="submit" value="Créer une critique" class="button">
+                </p>
             </form> 
         {% else %}
             {% comment %} <p>Critique déjà donné</p> {% endcomment %}

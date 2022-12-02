@@ -2,15 +2,16 @@
 
 {% block content %}
 
-<h1>Abonnement</h1>
+<h2>Abonnements</h2>
 
 <!-- Subscription form -->
-<h2>Suivre un profil</h2>
+<div class="post">
+<h3>Suivre un profil</h3>
 <form method="POST" action="{% url 'subscription' %}"> 
     {% csrf_token %}
-    <input type="text" placeholder="Indiquez le pseudo d'un utilisateur" name="followed_user"> <!-- name="followed_user"  -->
+    <input type="text" placeholder="Indiquez le pseudo d'un utilisateur" name="followed_user" id="search_user">
     <input type="hidden" class="hidden" name="action" value="search">
-    <button type="submit">S'abonner</button>
+    <button type="submit" class="button">S'abonner</button>
 
     {% if messages %}
     {% for message in messages %}
@@ -18,72 +19,53 @@
     {% endfor %}
     {% endif %}
 </form>
+</div>
 
 
 <!-- Following -->
-
 {% if user_follows %}
-    <h2>{{ user_follows.count }} abonnement{{ user_follows|pluralize }}</h2>
-    <ul>
-    {% for follow in user_follows %}
-        <li>
+<div class="post">
+    <h3>{{ user_follows.count }} abonnement{{ user_follows|pluralize }}</h3>
+    <table class="table">
+        <tbody>           
+        {% for follow in user_follows %}
+            <tr>
+                <th scope="row">{{ follow.followed_user.username }}</th>
+                <td>
+                    <form method="POST" action="{% url 'unfollow' follow.id %}">
+                        {% csrf_token %}                
+                        <input type="hidden" class="hidden" name="action" value="unfollow" >
+                        <input type="hidden" class="hidden" name="pk" value="{{ follow.followed_user.id  }}" >
+                        <button type="submit" class="button">Se desabonner</button>
+                    </form>
 
-        <form method="POST" action="{% url 'unfollow' follow.id %}">
-            {% csrf_token %}
+                </td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
 
-            <div>
-                <span style="width:20em;">
-                {{ follow.followed_user.username }}
-                {% comment %} {{ follow.followed_user.id }}        
-                {{ follow.id  }} {% endcomment %}
-                </span>
-
-
-            <input type="hidden" class="hidden" name="action" value="unfollow" >
-            <input type="hidden" class="hidden" name="pk" value="{{ follow.followed_user.id  }}" >
-            <button type="submit">Se desabonner</button>
-            </div>
-        </form>
-        
-
-
-
-        </li>
-    {% endfor %}
-    </ul>
 {% else %}
     <h4>Vous n'êtes abonné à aucun utilisateur pour le moment.</h4>
 {% endif %}
-
+</div>
 
 <!-- Followers -->
-
-
 {% if followed_by %}
-    <h4>{{ followed_by.count }} abonné{{ followed_by|pluralize }}</h4>
-    <ul>
+<div class="post">
+    <h3>{{ followed_by.count }} abonné{{ followed_by|pluralize }}</h3>
+    <table class="table">
+        <tbody>
         {% for follow in followed_by %}
-            <li>{{ follow.user.username }}</li>
+            <tr>
+                <th scope="row">{{ follow.user.username }}</th>
+            </tr>            
+        </tbody>
         {% endfor %}
-    </ul>
+    </table>
 {% else %}
     <h4 >Aucun utilisateur ne vous suit pour le moment.</h4>
 {% endif %}
+</div>
 
-
-
-
-
-
-{% comment %} 
-{% if title %}
-{{ title }}
-{% endif %}
-
-{% if form %}
-{{ form }}
-{% endif %}
-
-<p>zfzf</p> {% endcomment %}
-  
   {% endblock content %}

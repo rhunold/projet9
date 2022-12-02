@@ -1,13 +1,15 @@
 from django.contrib import admin
-
-# Register your models here.
 from feed.models import Ticket, Review
 
-class TicketAdmin(admin.ModelAdmin):  # nous insérons ces deux lignes..
-    list_display = ('title', 'description', 'time_created') # liste les champs que nous voulons sur l'affichage de la liste
 
-class ReviewAdmin(admin.ModelAdmin):  # nous insérons ces deux lignes..
-    list_display = ('headline', 'body', 'ticket', 'time_created') # liste les champs que nous voulons sur l'affichage de la liste
+class TicketAdmin(admin.ModelAdmin):
+    """ Display datas of Ticket in the admin list """
+    list_display = ('title', 'description', 'time_created')
+
+
+class ReviewAdmin(admin.ModelAdmin):
+    """ Display datas of Review in the admin list """
+    list_display = ('headline', 'body', 'ticket', 'time_created')
 
 
 admin.site.register(Ticket, TicketAdmin)

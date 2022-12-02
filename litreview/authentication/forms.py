@@ -10,17 +10,14 @@ class SignupForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
         fields = ('username',)
+        # help_texts = {
+        #     'username': None,
+        # }
 
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=63, label='Nom d\'utilisateur')
     password = forms.CharField(max_length=63, widget=forms.PasswordInput, label='Mot de passe')
-
-# class LoginForm(forms.ModelForm):
-#    class Meta:
-#      model = User
-#      fields = '__all__'
-#     #  exclude = ('time_created',)  # pour ne pas afficher certains champs du model dans le formulaire
 
 
 class SubscribeForm(forms.Form):

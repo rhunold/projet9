@@ -14,13 +14,34 @@ html {
 
 }
 
+a, a:hover {
+    color: black !important;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
 header {
     border-bottom:1px solid black;
 }
 
+
+#subscribe label {
+    margin-top:2em;
+}
+
+#subscribe ul {
+    padding-left: 0 !important;
+}
+
+.helptext{
+    display:block;
+  }
+
 main {
-
-
     text-align: left;
     border:1px solid black;
     border-top:0;
@@ -29,7 +50,8 @@ main {
 }
 
 #create_buttons {
-    text-align: center;    
+    text-align: center;
+    padding:1em;
 }
 
 h1 {
@@ -43,6 +65,8 @@ h1 {
     border-bottom:1px solid black;
 }
 
+table  {border:1px solid black;}
+table th {vertical-align: middle;}
 
 
 img {
@@ -51,21 +75,13 @@ img {
 }
 
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-/* #id_image */
-
-
 
 .button {
     /* text-decoration: none; */
     font-size: 1em;
     background-color: white;
     padding: 0.5em;
-    margin:0.5em;
+    margin-right:0.5em;
     border-radius: 0.5em;
     cursor:hand;
     border:1px solid black; 
@@ -75,9 +91,8 @@ a {
 
 input[type="file"] {
     color:transparent;
- 
     /* display:none; */
-      
+
 }
 
 input[type=file]::-webkit-file-upload-button {
@@ -89,26 +104,18 @@ input[type=file]::-webkit-file-upload-button {
     border-radius: 0.5em;
     border:1px solid black; 
 }
-/* 
-form .button {
 
-      
-} */
 
 
 div.post {
     border:1px solid black;
-    padding:0.5em;
-    margin:0.5em;
+    padding:1em;
+    margin:1em 0;
 }
 
-/* div.post a.button {} */
-
-
-
-/* header { float:left; } */
-
-
+div.post em {
+    float:right;
+}
 
 label {margin-top:1em;}
 
@@ -119,10 +126,20 @@ label, select, #id_headline, #id_body, #id_title, #id_description {
     min-width: 100%;
 }
 
+/* input[type="text"] */
+
+#search_user {
+    padding:0.5em;
+    min-width: 80%;
+    border-radius: 0.5em;    
+
+}
+
 
 #id_rating {
     text-align: center;   
 }
+
 #id_rating div {
     display:inline-block;
     min-width: auto;

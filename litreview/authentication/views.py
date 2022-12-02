@@ -15,7 +15,7 @@ from authentication.models import User, UserFollow
 
 
 def signup_page(request):
-    """Signup page """       
+    """Signup page """
     form = forms.SignupForm()
     if request.method == 'POST':
         form = forms.SignupForm(request.POST)
@@ -27,9 +27,8 @@ def signup_page(request):
     return render(request, 'authentication/signup.html', context={'form': form})
 
 
-
 class LoginPageView(View):
-    """Login page """       
+    """Login page """
     template_name = 'authentication/login.html'
     form_class = forms.LoginForm
 
@@ -37,7 +36,7 @@ class LoginPageView(View):
         form = self.form_class()
         message = ''
         return render(request, self.template_name, context={'form': form, 'message': message})
-        
+
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
@@ -51,18 +50,16 @@ class LoginPageView(View):
         message = 'Identifiants invalides.'
         return render(request, self.template_name, context={'form': form, 'message': message})
 
- 
+
 def logout_user(request):
-    """Logout Page """       
+    """Logout Page """
     logout(request)
     return redirect('login')
 
 
-
-
 @login_required
 def subscription_page(request):
-    """ Subscription Page """        
+    """ Subscription Page """
     if request.POST.get('action') == 'search':
         form = forms.SubscribeForm(request.POST)
 
@@ -81,7 +78,6 @@ def subscription_page(request):
             except User.DoesNotExist:
                 messages.error(request, f'L\'utilisateur {form.data["followed_user"]} n\'existe pas.')
 
-
     else:
         form = forms.SubscribeForm()
 
@@ -99,11 +95,10 @@ def subscription_page(request):
 
 @login_required
 def unfollow(request, pk):
-    if request.POST.get('action') == 'unfollow':    
+    if request.POST.get('action') == 'unfollow':
 
         unfollow = UserFollow.objects.get(id=pk)
         followed_user = unfollow.followed_user
         unfollow.delete()
-        messages.success(request, f'Vous ne suivez plus {followed_user}')        
+        messages.success(request, f'Vous ne suivez plus {followed_user}')
         return redirect('subscription')
-    

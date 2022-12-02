@@ -9,10 +9,12 @@
 
 
 <h2>Critique</h2>
-<form action="" method="POST"> <!-- novalidate -->
+<form action="" method="POST">
   {% csrf_token %}
   {{ form.as_p }}
-  <input type="submit" value="Envoyer" class="button">
+  <p class="text-end">
+    <input type="submit" value="Envoyer" class="button">
+  </p>  
 </form>
 
 {% endblock %}

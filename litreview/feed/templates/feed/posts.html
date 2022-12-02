@@ -4,34 +4,44 @@
 
 <p>Vous avez crée {{ tickets|length }} tickets et {{ reviews|length }} critiques.</p>
 
-
-
 {% for post in posts %}
     <div class="post">
     {% if post.title  %}
 
-        {% include 'feed/snippet_ticket.html' %}         
+        {% include 'feed/snippet_ticket.html' %}
 
-        <!-- <a href="{% url 'ticket_detail' post.id %}">Détails</a> -->
+        <p class="text-end">            
+            <a href="{% url 'ticket_update' post.id %}" class="button">Modifier</a>
+            <a href="{% url 'ticket_delete' post.id %}" class="button">Supprimer</a>     
+        </p>        
 
+
+<!-- 
+
+        <a href="{% url 'ticket_detail' post.id %}">Détails</a>
+            
         {% if post not in reviews_ticket %}
             <form action="{% url 'review_create' post.id %}" method="POST">
                 {% csrf_token %}
-                <input name="ticket_id" value="{{post.id}}" type="hidden">
-                <input type="submit" value="Créer une critique" class="button">
+                <p class="text-end">
+                    <input name="ticket_id" value="{{post.id}}" type="hidden">
+                    <input type="submit" value="Créer une critique" class="button">
 
-                <a href="{% url 'ticket_update' post.id %}" class="button">Modifier</a>
-                <a href="{% url 'ticket_delete' post.id %}" class="button">Supprimer</a>                
+                    <a href="{% url 'ticket_update' post.id %}" class="button">Modifier</a>
+                    <a href="{% url 'ticket_delete' post.id %}" class="button">Supprimer</a>  
+                </p>              
             </form> 
         {% else %}
-            {% comment %} <p>Critique déjà donné</p> {% endcomment %}
-            <a href="{% url 'ticket_update' post.id %}" class="button">Modifier</a>
-            <a href="{% url 'ticket_delete' post.id %}" class="button">Supprimer</a>            
-        {% endif %}             
+            <p>Critique déjà donné</p>
+            <p class="text-end">            
+                <a href="{% url 'ticket_update' post.id %}" class="button">Modifier</a>
+                <a href="{% url 'ticket_delete' post.id %}" class="button">Supprimer</a>     
+            </p>
+        {% endif %}
+    
+-->
 
 
-
-  
 
 
     {% else %}
@@ -40,10 +50,10 @@
            {% include 'feed/snippet_review.html' %} 
 
             <!-- <a href="{% url 'review_detail' post.id %}">Détails</a>  -->
-
-            <a href="{% url 'review_update'  post.id %}" class="button">Modifier</a>
-            <a href="{% url 'review_delete'  post.id %}" class="button">Supprimer</a>
-
+            <p class="text-end">  
+                <a href="{% url 'review_update'  post.id %}" class="button">Modifier</a>
+                <a href="{% url 'review_delete'  post.id %}" class="button">Supprimer</a>
+            </p>
 
     {% endif %}
     </div>

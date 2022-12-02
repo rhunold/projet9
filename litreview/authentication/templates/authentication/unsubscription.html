@@ -4,17 +4,7 @@
 
 <h2>Désabonnement</h2>
 
-<p>Confirmez-vous le desabonnement de  ?
-  
-
-    {% comment %}
-    
-    {{ follow.followed_user.username }}
-    {{ follow.id  }}
-    
-    {% endcomment %}
-
-</p>
+<p>Confirmez-vous le desabonnement de {{ follow.followed_user.username }} ?</p>
 
 
 <form method="POST" action="{% url 'subscription'  %}" name="followed_user">
@@ -22,7 +12,7 @@
     {% csrf_token %}
 
 
-    <button type="submit">Oui</button>
+    <button type="submit" class="button">Oui</button>
     <a href="{% url 'subscription' %}">Annuler</a>
 </div>
 </form>

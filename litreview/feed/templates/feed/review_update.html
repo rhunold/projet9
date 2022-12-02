@@ -4,20 +4,23 @@
 
 <h2>Modifier votre critique</h2>
 
-{% include 'feed/snippet_ticket.html' %} 
+<div class="post">
+  <p>Vous êtes en train de poster en réponse à </p>
+  {% include 'feed/snippet_ticket.html' %} 
+</div>
 
-<hr>
+
 <h2>Critique</h2>
 {% if review.user == request.user %}
-  <form action="" method="POST" class="text-right"> <!-- novalidate -->
-    {% csrf_token %}
-    {{ update_form.as_p }}
-    <input type="submit" value="Envoyer" class="button">
-  </form>
+
+<form action="" method="POST" class="text-right"> <!-- novalidate -->
+  {% csrf_token %}
+  {{ update_form.as_p }}
+  <input type="submit" value="Envoyer" class="button">
+</form>
 
 {% else %}
   <h2>Vous n'êtes pas autorisé à modifier cette critique.</h2>
-
 {% endif %}
 
 {% endblock %}
