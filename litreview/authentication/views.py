@@ -9,16 +9,18 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.views.generic import View
 
+# from . import forms
 
-from . import forms
+from authentication.forms import SignupForm, LoginForm, SubscribeForm
+
 from authentication.models import User, UserFollow
 
 
 def signup_page(request):
     """Signup page """
-    form = forms.SignupForm()
+    form = SignupForm()
     if request.method == 'POST':
-        form = forms.SignupForm(request.POST)
+        form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
             # auto-login user
@@ -30,7 +32,7 @@ def signup_page(request):
 class LoginPageView(View):
     """Login page """
     template_name = 'authentication/login.html'
-    form_class = forms.LoginForm
+    form_class = LoginForm()
 
     def get(self, request):
         form = self.form_class()
@@ -61,7 +63,7 @@ def logout_user(request):
 def subscription_page(request):
     """ Subscription Page """
     if request.POST.get('action') == 'search':
-        form = forms.SubscribeForm(request.POST)
+        form = SubscribeForm(request.POST)
 
         if form.is_valid():
             try:
@@ -79,7 +81,7 @@ def subscription_page(request):
                 messages.error(request, f'L\'utilisateur {form.data["followed_user"]} n\'existe pas.')
 
     else:
-        form = forms.SubscribeForm()
+        form = SubscribeForm()
 
     user_follows = UserFollow.objects.filter(user=request.user).order_by('followed_user')
     followed_by = UserFollow.objects.filter(followed_user=request.user).order_by('user')

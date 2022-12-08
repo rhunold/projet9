@@ -4,11 +4,22 @@
 
 <h1>Mise à jour du ticket {{ ticket.title }} </h1>
 
+
+
 {% if ticket.user == request.user %}
   <form action="" method="post"  enctype="multipart/form-data"> <!-- novalidate -->
     {% csrf_token %}
     {{ update_form.as_p }}
-    <input type="submit" value="Envoyer" class="button">
+
+    <!-- {% if update_form.instance.image %}
+    <div class="text-center">
+      <img src="{{ ticket.image.url }}">
+    </div>
+    {% endif %}     -->
+
+    <div class="text-end">
+      <input type="submit" value="Envoyer" class="button">
+    </div>    
   </form>
 
 {% else %}

@@ -74,10 +74,15 @@ img {
     max-width: 150px;
 }
 
+nav a.active  {
+    text-decoration: underline;
+}
 
 
 .button {
     /* text-decoration: none; */
+    /* float:right; */
+    /* clear:both; */    
     font-size: 1em;
     background-color: white;
     padding: 0.5em;
@@ -85,24 +90,41 @@ img {
     border-radius: 0.5em;
     cursor:hand;
     border:1px solid black; 
-    /* float:right; */
-    /* clear:both; */
+
 }
 
 input[type="file"] {
     color:transparent;
-    /* display:none; */
-
 }
 
 input[type=file]::-webkit-file-upload-button {
-    visibility: show;
-
+    /* visibility: show; */
     font-size: 1em;
     background-color: white;
     padding: 0.5em;
     border-radius: 0.5em;
     border:1px solid black; 
+}
+
+#image-clear_id {
+    clear:left;
+}
+
+label[for=id_image] + a {
+    display:block;
+    /* background-color: red; */
+    padding:0.5em 0;
+}
+
+/* label clear image uploaded */
+label[for=image-clear_id] {
+    display: inline;
+    font-size: 1em;
+    background-color: white;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    border:1px solid black;
+    min-width: 0;
 }
 
 

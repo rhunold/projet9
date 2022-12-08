@@ -1,5 +1,10 @@
 from django import forms
 from feed.models import Ticket, Review
+from django.forms.widgets import ClearableFileInput
+
+
+class MyImageWidget(ClearableFileInput):
+    template_name = "feed/clearable_file_input.html"
 
 
 # Value, Label
@@ -14,13 +19,18 @@ class TicketForm(forms.ModelForm):
 
         # fields = '__all__'
         # exclude = ('user',)  # pour ne pas afficher certains champs du model dans le formulaire
-        fields = ['title', 'description', 'image', ]
+        fields = ["title", "description", "image", ]
 
         labels = {
           "title": "Titre",
           "description": "Description",
           "image": "Image",
           }
+        # widgets = {
+        #     "image": MyImageWidget,
+        #   }
+
+    image = forms.ImageField(widget=MyImageWidget)
 
 
 class ReviewForm(forms.ModelForm):

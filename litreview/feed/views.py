@@ -130,6 +130,7 @@ def ticket_update(request, ticket_id):
     if request.method == 'POST':
         update_form = TicketForm(request.POST, request.FILES, instance=ticket)
         if update_form.is_valid():
+
             update_form.save()
             return redirect('home')
 
