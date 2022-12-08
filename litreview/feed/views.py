@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from itertools import chain
 from django.core.paginator import Paginator
+from django.contrib import messages
 
 from feed.models import Ticket, Review
 from feed.forms import TicketForm, ReviewForm, TicketReviewForm
@@ -84,7 +85,7 @@ def ticket_review_create(request):
                 user=request.user
             )
             review.save()
-
+            messages.success(request, 'Votre ticket avec review a été crée.')
             return redirect('/home/')
 
     else:
@@ -113,6 +114,7 @@ def ticket_create(request):
             ticket = form.save(commit=False)
             ticket.user = request.user
             ticket.save()
+            messages.success(request, 'Votre ticket a été crée.')
             return redirect('home')
 
     else:
@@ -126,18 +128,23 @@ def ticket_update(request, ticket_id):
     """ Update Ticket """
     ticket = Ticket.objects.get(id=ticket_id)
     update_form = TicketForm(instance=ticket)
+    
+    context = {
+        'update_form': update_form,
+        'ticket': ticket,
+        
+        # 'form': ReviewForm(initial={'ticket': post}),
+        
+        }    
 
     if request.method == 'POST':
         update_form = TicketForm(request.POST, request.FILES, instance=ticket)
         if update_form.is_valid():
-
             update_form.save()
+            messages.success(request, 'Votre ticket a été mise à jour.')
+            # return render(request, 'feed/home.html', context=context)
             return redirect('home')
-
-    context = {
-        'update_form': update_form,
-        'ticket': ticket,
-        }
+            # return redirect('home')
 
     return render(request, 'feed/ticket_update.html', context=context)
 
@@ -148,6 +155,7 @@ def ticket_delete(request, ticket_id):
     ticket = Ticket.objects.get(id=ticket_id)
     if request.method == 'POST':
         ticket.delete()
+        messages.success(request, 'Votre ticket a été supprimé.')
         return redirect('home')
     return render(request, 'feed/ticket_delete.html', {'ticket': ticket})
 
@@ -206,6 +214,7 @@ def review_update(request, review_id):
         update_form = ReviewForm(request.POST, instance=review)
         if update_form.is_valid():
             update_form.save()
+            messages.success(request, 'Votre critique a été mise à jour')
             return redirect('home')
 
     context = {

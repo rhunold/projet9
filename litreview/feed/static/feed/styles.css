@@ -98,7 +98,6 @@ input[type="file"] {
 }
 
 input[type=file]::-webkit-file-upload-button {
-    /* visibility: show; */
     font-size: 1em;
     background-color: white;
     padding: 0.5em;
@@ -106,26 +105,26 @@ input[type=file]::-webkit-file-upload-button {
     border:1px solid black; 
 }
 
+/* 
 #image-clear_id {
     clear:left;
 }
 
 label[for=id_image] + a {
     display:block;
-    /* background-color: red; */
     padding:0.5em 0;
 }
+*/
 
-/* label clear image uploaded */
 label[for=image-clear_id] {
-    display: inline;
+    display: inline-block;
     font-size: 1em;
     background-color: white;
     padding: 0.5em;
     border-radius: 0.5em;
     border:1px solid black;
     min-width: 0;
-}
+} 
 
 
 

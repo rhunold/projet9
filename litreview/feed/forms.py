@@ -3,7 +3,7 @@ from feed.models import Ticket, Review
 from django.forms.widgets import ClearableFileInput
 
 
-class MyImageWidget(ClearableFileInput):
+class UploadImageWidget(ClearableFileInput):
     template_name = "feed/clearable_file_input.html"
 
 
@@ -26,11 +26,9 @@ class TicketForm(forms.ModelForm):
           "description": "Description",
           "image": "Image",
           }
-        # widgets = {
-        #     "image": MyImageWidget,
-        #   }
-
-    image = forms.ImageField(widget=MyImageWidget)
+        widgets = {
+            "image":  UploadImageWidget,
+          }
 
 
 class ReviewForm(forms.ModelForm):
